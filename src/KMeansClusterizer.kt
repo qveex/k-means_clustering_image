@@ -12,7 +12,7 @@ class KMeansClusterizer(override var sourceImage: BufferedImage) : IClusterizer 
     private var clusteredImage = sourceImage
     private var clusters = ArrayList<Cluster>()
 
-    private val k = 100
+    private val k = 20
 
     override fun clustering() : BufferedImage {
 
@@ -42,7 +42,7 @@ class KMeansClusterizer(override var sourceImage: BufferedImage) : IClusterizer 
                 iteration++
 
                 //println("iteration = $iteration")
-            } while ((clusters.contains(cluster) || checkClustersForRepeats(pix.color)) && iteration != 7)
+            } while ((clusters.contains(cluster) || checkClustersForRepeats(pix.color)) && iteration != 42)
 
             clusters.add(cluster)
         }
@@ -132,7 +132,7 @@ class KMeansClusterizer(override var sourceImage: BufferedImage) : IClusterizer 
 
     private fun save() {
         try {
-            val outputfile = File("clusteredImage.jpg")
+            val outputfile = File("clusteredImage(k = $k).jpg")
             ImageIO.write(clusteredImage, "jpg", outputfile)
         } catch (e: IOException) {
             e.printStackTrace()

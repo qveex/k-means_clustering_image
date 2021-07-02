@@ -3,7 +3,7 @@
 
 fun main() {
 
-    val sourcePic = Image("ХТО3.png")
+    val sourcePic = Image("1a.jpg")
     val clusteredPic = sourcePic.clustering()
 
     sourcePic.paint()
