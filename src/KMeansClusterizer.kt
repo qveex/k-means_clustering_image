@@ -12,21 +12,36 @@ class KMeansClusterizer(override var sourceImage: BufferedImage) : IClusterizer 
     private var clusteredImage = sourceImage
     private var clusters = ArrayList<Cluster>()
 
-    private val k = 20
+    val k get() = 100
+
 
     override fun clustering() : BufferedImage {
 
         val begin: Long = System.currentTimeMillis()
 
-        /*
-         * Pick random pixel on image
-         *
-         * if the same pixel is already was picked
-         *      it will be replaced
-         * else
-         *      add this pixel as centroid for current cluster
-         */
 
+        initCentroids()
+        fastPaint()
+        save()
+
+
+        val end: Long = System.currentTimeMillis()
+        println("\nk = $k\nTime spent: ${ end - begin } ms")
+
+        return clusteredImage
+    }
+
+
+
+    /*
+    * Pick random pixel on image
+    *
+    * if the same pixel is already was picked
+    *      it will be replaced
+    * else
+    *      add this pixel as centroid for current cluster
+    */
+    private fun initCentroids() {
 
         for (n in 0 until k) {
 
@@ -51,16 +66,7 @@ class KMeansClusterizer(override var sourceImage: BufferedImage) : IClusterizer 
             //println("centroid = ${it.curCentroid}")
         //}
 
-        fastPaint()
-
-        save()
-
-        val end: Long = System.currentTimeMillis()
-        println("\nk = $k\nTime spent: ${ end - begin } ms")
-
-        return clusteredImage
     }
-
 
     /*
      * change color of pixels based on their distance between centroids
@@ -105,8 +111,8 @@ class KMeansClusterizer(override var sourceImage: BufferedImage) : IClusterizer 
 
 
     /*
-     * the function calculates whether distance between random pixels
-     * if (distance < 1500) i.e. big enough
+     * the function calculates color distance between random pixels
+     * if (distance < 2000) i.e. big enough
      *      selected color is accepted
      * else
      *      return false and choose new random color
@@ -119,7 +125,7 @@ class KMeansClusterizer(override var sourceImage: BufferedImage) : IClusterizer 
             val g = (color.green - it.curCentroid.color.green).toDouble().pow(2)
             val b = (color.blue - it.curCentroid.color.blue).toDouble().pow(2)
 
-            if ((r + g + b) < 1500) return true
+            if ((r + g + b) < 2000) return true
             if (it === clusters.last()) return false
         }
         return false

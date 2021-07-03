@@ -1,12 +1,19 @@
-
+import java.lang.NullPointerException
 
 
 fun main() {
 
-    val sourcePic = Image("1a.jpg")
-    val clusteredPic = sourcePic.clustering()
+    try {
 
-    sourcePic.paint()
-    clusteredPic.paint()
+        val imageReader = ImageReader()
+        val sourcePic = Image(imageReader.path)
+        val clusteredPic = sourcePic.clustering()
 
+        sourcePic.paint()
+        clusteredPic.paint()
+
+
+    } catch (e: NullPointerException) {
+        println("\nThis file is null or not image ¯\\_(ツ)_/¯\n")
+    }
 }
