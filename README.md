@@ -1,4 +1,4 @@
-# k-means clusterinf of image
+# k-means clustering of image
 -----------------------------
 
 Clustering of image by k-means algorithm
