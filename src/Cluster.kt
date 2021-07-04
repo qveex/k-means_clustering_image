@@ -1,10 +1,45 @@
+import java.awt.Color
+
+class Cluster(centroid: Pixel) {
+
+    var curCentroid: Pixel = centroid
+    private val pixels = ArrayList<Pixel>()
+    lateinit var lastCentroid: Pixel
 
 
-class Cluster(var curCentroid: Pixel) {
+    fun getPixels() = pixels
 
-    private val points = ArrayList<Pixel>()
+    fun addPixel(pix: Pixel) = pixels.add(pix)
 
-    //private lateinit var curCentroid: Pixel
-    private lateinit var lastCentroid: Pixel
+    private fun clearPixels() = pixels.clear()
+
+    fun isNotChanged() = curCentroid == lastCentroid
+
+
+    /*
+     * calculates new color for this centroid
+     * new color is average of R, G, B
+     * also clear list of pixels of this centroid
+     * for new centroid will be calculated new list of pixels
+     * updates last centroid
+     */
+    fun newColor() {
+
+        var newR = 0
+        var newG = 0
+        var newB = 0
+
+        pixels.forEach {
+
+            newR += it.color.red
+            newG += it.color.green
+            newB += it.color.blue
+
+        }
+
+        lastCentroid = curCentroid
+        curCentroid.color = Color(newR / (pixels.size + 1), newG / (pixels.size + 1), newB / (pixels.size + 1))
+        clearPixels()
+    }
 
 }

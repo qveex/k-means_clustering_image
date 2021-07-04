@@ -6,5 +6,5 @@ data class Pixel (
     val x: Int,
     val y: Int,
 
-    val color: Color
+    var color: Color
 )
