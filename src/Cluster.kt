@@ -4,7 +4,7 @@ class Cluster(centroid: Pixel) {
 
     var curCentroid: Pixel = centroid
     private val pixels = ArrayList<Pixel>()
-    lateinit var lastCentroid: Pixel
+    private var lastCentroid = Pixel(curCentroid.x, curCentroid.y, curCentroid.color)
 
 
     fun getPixels() = pixels
@@ -37,7 +37,7 @@ class Cluster(centroid: Pixel) {
 
         }
 
-        lastCentroid = curCentroid
+        lastCentroid.color = curCentroid.color
         curCentroid.color = Color(newR / (pixels.size + 1), newG / (pixels.size + 1), newB / (pixels.size + 1))
         clearPixels()
     }

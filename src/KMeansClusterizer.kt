@@ -13,7 +13,7 @@ class KMeansClusterizer(override var sourceImage: BufferedImage) : IClusterizer 
     private var clusters = ArrayList<Cluster>()
 
     val k get() = 20                // number of clusters
-    private val iteration = 10      // max number of iterations
+    private val iteration = 20      // max number of iterations
 
 
     override fun clustering() : BufferedImage {
@@ -109,7 +109,7 @@ class KMeansClusterizer(override var sourceImage: BufferedImage) : IClusterizer 
             clustersFilling()
             println("iteration $counter")
 
-        } while (++counter < iteration && clustersAreGood())
+        } while (++counter < iteration && !clustersAreGood())
         println("cycle stop\niteration = $counter")
     }
 
